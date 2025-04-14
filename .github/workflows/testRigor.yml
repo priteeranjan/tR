@@ -50,7 +50,7 @@ jobs:
 
           curl -X POST \
             -H 'Content-type: application/json' \
-            -H 'auth-token: {$auth-token}' \
+            -H 'auth-token: {$AUTH_TOKEN}' \
             --data "${combined_json}" \
             https://api.testrigor.com/api/v1/apps/{$testId}}/retest
 
@@ -64,7 +64,7 @@ jobs:
             echo "==================================="
             echo " Checking TestRigor retest"
             echo "==================================="
-            response=$(curl -i -o - -s -X GET 'https://api.testrigor.com/api/v1/apps/{$testId}/status' -H 'auth-token: {$auth-token}}' -H 'Accept: application/json')
+            response=$(curl -i -o - -s -X GET 'https://api.testrigor.com/api/v1/apps/{$testId}/status' -H 'auth-token: {$AUTH_TOKEN}}' -H 'Accept: application/json')
             code=$(echo "$response" | grep HTTP |  awk '{print $2}')
             body=$(echo "$response" | grep status)
             echo "Status code: " $code
