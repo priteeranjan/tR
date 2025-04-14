@@ -1,8 +1,8 @@
 # This is a basic workflow to help you get started with Actions
 
 name: testRigor
-
 # Controls when the workflow will run
+
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
@@ -17,7 +17,6 @@ jobs:
   api_call_job:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
@@ -28,7 +27,8 @@ jobs:
         run: |
           # Path to the folder containing YAML files
           yaml_folder="test-cases"
-          
+         
+
           # Initialize an empty JSON array
           combined_json='{
             "baselineMutations": []
@@ -40,23 +40,24 @@ jobs:
               # Create description name from yml file
               file_name=$(basename "$yaml_file")
               file_name="${file_name%.yaml}"
-
               # Append description name to test case json object
               json_content=$(jq --arg name "$file_name" '. + {description: $name}' <<<"$json_content")
               # Add json_content to the array in the JSON object using jq
               combined_json=$(jq --argjson content "$json_content" '.baselineMutations += [$content]' <<< "$combined_json")
           done
-
           echo $combined_json
-          
+         
+
           curl -X POST \
             -H 'Content-type: application/json' \
             -H 'auth-token: {$auth-token}' \
             --data "${combined_json}" \
             https://api.testrigor.com/api/v1/apps/{$testId}}/retest
-          
+
+         
           sleep 10
-          
+
+         
           while true
           do
             echo " "
