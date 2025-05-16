@@ -3,7 +3,6 @@ name: Scheduled testRigor Run
 on:
   schedule:
     - cron: '10 22 * * *'    # Your scheduled time (3:40 AM IST)
-    workflow_dispatch:       # Enables manual trigger
 
 jobs:
   trigger-tests:
