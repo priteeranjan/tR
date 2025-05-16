@@ -3,7 +3,7 @@ name: Scheduled testRigor Run
 on:
   schedule:
     # Runs at 9:00 AM UTC daily — adjust as needed
-    - cron: '0 9 * * *'
+    - cron: '10 22 * * *'
 
 jobs:
   trigger-tests:
