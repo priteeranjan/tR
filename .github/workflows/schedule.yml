@@ -1,14 +1,14 @@
-name: Scheduled testRigor Run
-
+name: Scheduled
 on:
-  workflow_dispatch:          # allows manual runs
+  workflow_dispatch:
   schedule:
-    - cron: "*/10 * * * *"    # every 10 minutes
-
+    - cron: "*/10 * * * *"  # every 10 minutes UTC
 jobs:
   trigger-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Show UTC time
+        run: date -u
       - name: Trigger testRigor retest
         run: |
           curl -X POST \
