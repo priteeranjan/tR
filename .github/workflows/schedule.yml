@@ -1,0 +1,18 @@
+name: Scheduled testRigor Run
+
+on:
+  workflow_dispatch:          # allows manual runs
+  schedule:
+    - cron: "*/10 * * * *"    # every 10 minutes
+
+jobs:
+  trigger-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger testRigor retest
+        run: |
+          curl -X POST \
+            -H 'Content-type: application/json' \
+            -H 'auth-token: 87a0515d-c7e5-47f3-9a86-f24edd7d4bba' \
+            --data '{ "storedValues": { "storedValueName1": "Value" }, "customName": "optionalNameForRun" }' \
+            https://api.testrigor.com/api/v1/apps/iWnQ99WLgJqqtxduN/retest
